@@ -38,7 +38,7 @@ export const useMount = (callback: () => void)=> {
 // log()
 // delay可以不传不然就传number类型
 // 后面用泛型来规范类型
-export const useDebounce = (value: unknown, delay?: number): any=> {
+export const useDebounce = <V>(value: V, delay?: number) => {
     const [debounceValue, setDebounceValue] = useState(value)
     useEffect(() => {
         // 每次在value变化以后，设置一个定时器
