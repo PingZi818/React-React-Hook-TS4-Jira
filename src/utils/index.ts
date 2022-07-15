@@ -37,7 +37,7 @@ export const useMount = (callback: () => void)=> {
 // log()
 // log()
 // delay可以不传不然就传number类型
-// 后面用泛型来规范类型
+// 用泛型来规范类型
 export const useDebounce = <V>(value: V, delay?: number) => {
     const [debounceValue, setDebounceValue] = useState(value)
     useEffect(() => {
@@ -48,4 +48,17 @@ export const useDebounce = <V>(value: V, delay?: number) => {
     }, [value, delay])
 
     return debounceValue
+}
+// homework 自己写一个hook
+export const useArray = <T>(initialArray: T[]) => {
+    const [value, setValue] = useState(initialArray)
+    return {
+        value, setValue, 
+        add: (item: T) => setValue([...value, item]), 
+        removeIndex:(key: number) => {
+            const copy = [...value]
+            setValue(copy.splice(key, 1))
+        },
+        clear: () => setValue([])
+    }
 }
