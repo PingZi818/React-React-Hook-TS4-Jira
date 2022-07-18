@@ -7,9 +7,15 @@ export const TsReactTest = () => {
         { name: "ma", age: 22 },
     ]
     const { value, clear, removeIndex, add } = useArray(persons)
-    useMount( () => {
-        console.log(value.noExist)
-        add({name: ""})
-        removeIndex("123")
-    })
+    // useMount( () => {
+        // console.log(value)
+        // add({name: "john", age: 23})
+        // removeIndex(0)
+        // clear()
+    // })
+    return <div>
+        <button onClick={() => add({name: "john", age: 23})}>add john</button>
+        <button onClick={() => removeIndex(0)}>remove 0</button>
+        <button onClick={() => clear()}>clear</button>
+    </div>
 }

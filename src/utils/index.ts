@@ -16,11 +16,12 @@ export const cleanObject = (object: object) => {
 
     return result
 }
-export const useMount = (callback: () => void)=> {
+/** 自定义hooks */
+export const useMount = (callback: () => void) => {
     useEffect(() => {
-        callback()
-    }, [])
-}
+      callback();
+    }, []);
+  };
 // const debounce = (func, delay) => {
 //     let timeout;
 //     return (...param) => {
