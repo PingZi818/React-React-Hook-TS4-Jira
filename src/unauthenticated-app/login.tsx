@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import { useAuth } from "context/auth-context";
 import React, { FormEvent } from "react";
 export const LoginScreen = () => {
@@ -9,6 +10,7 @@ export const LoginScreen = () => {
         login({username, password})
     }
     return <form onSubmit={handleSubmit}>
+        {user? <div>登录成功，用户名：{user?.name}</div> : null}
         <div>
             <label htmlFor="username">用户名</label>
             <input type="text" id={'username'}/>
