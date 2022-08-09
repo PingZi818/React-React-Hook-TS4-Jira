@@ -1,8 +1,8 @@
-import { Table } from "antd"
+import { Table, TableProps } from "antd"
 import dayjs from "dayjs"
 import React from "react"
 import { User } from "./search-panel"
-interface Project {
+export interface Project {
     id: string,
     name: string,
     personId: string,
@@ -10,13 +10,15 @@ interface Project {
     organization: string,
     created: number
 }
-interface ListProps {
-    list: Project[],
+interface ListProps extends TableProps<Project> {
     users: User[]
 }
 // moment.js已经停止维护，用day.js Api和它很像
-export const List = ({list, users} : ListProps)=> {
-    return <Table pagination={false} columns={[
+export const List = ({users, ...props} : ListProps)=> {
+    return <Table 
+    rowKey={"id"}
+    pagination={false} 
+    columns={[
         {
             title: '名称',
             dataIndex: 'name',
@@ -43,6 +45,7 @@ export const List = ({list, users} : ListProps)=> {
                 </span>
             }
         }
-    ]} dataSource={list}>
+    ]} 
+    {...props}>
     </Table>
 }
