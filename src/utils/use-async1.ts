@@ -40,7 +40,7 @@ export const useAsync = <D>(
         })
         .catch(error => {
             setError(error)
-            return error
+            return Promise.reject(error)
         })
     }
 
