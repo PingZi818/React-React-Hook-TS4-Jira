@@ -6,16 +6,15 @@ import styled from "@emotion/styled"
 import logo from "assets/logo.svg"
 import left from "assets/left.svg"
 import right from "assets/right.svg"
+// import {Helmet} from "react-helmet"
 export const UnauthenticatedApp = () => {
     const [isRegister, setIsRegister] = useState(false)
     const [error, setError] = useState<Error | null>(null)
 
     return (<Container>
+      {/* <Helmet><title>请登录或注册</title></Helmet> */}
         <Header/>
         <Background/>
-        <Button onClick={() => {
-          throw new Error('抛出一个异常')
-        }}>抛出异常</Button>
         <ShadowCard>
             <Title>
             { isRegister ? '请注册' : '请登录'}
