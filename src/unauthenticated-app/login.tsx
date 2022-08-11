@@ -2,7 +2,9 @@ import { useAuth } from "context/auth-context";
 import { Form, Input } from "antd";
 import { LongButton } from "unauthenticated-app";
 import { useAsync } from "utils/use-async";
+import { useDocumentTitle } from "../utils"
 export const LoginScreen = ({onError}: {onError: (error: Error | null) => void}) => {
+    useDocumentTitle("请登录或者注册", false);
     const { login } = useAuth()
     const {run, isLoading} = useAsync(undefined, { throwOnError: true})
      // HTMLFormElement extends Element

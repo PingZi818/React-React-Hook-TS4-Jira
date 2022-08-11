@@ -18,7 +18,7 @@
     "jira-dev-tool": "^1.6.59",
     "qs": "^6.10.1",
     "react": "^18.2.0",
-    "react-dom": "^17.0.2",
+    "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
     "react-query": "^3.5.10",
     "react-router-dom": "6",
