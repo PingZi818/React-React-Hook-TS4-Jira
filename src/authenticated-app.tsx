@@ -4,7 +4,7 @@ import { Row } from "components/lib"
 import { useAuth } from "context/auth-context"
 import { ProjectListScreen } from "screens/project-list"
 import {ReactComponent as SoftwareLogo} from 'assets/software-logo.svg'
-import {Navigate, Route, Routes } from "react-router"
+import { Route, Routes } from "react-router"
 import { ProjectScreen } from "screens/project"
 import { BrowserRouter as Router } from "react-router-dom"
 import { resetRoute } from "utils"

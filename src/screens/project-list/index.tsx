@@ -1,4 +1,3 @@
-import { useState } from "react"
 import React from "react"
 import { List } from "./list"
 import { SearchPanel } from "./search-panel"
@@ -7,12 +6,12 @@ import styled from "@emotion/styled"
 import { Typography } from "antd"
 import { useProjects } from "utils/project"
 import { useUsers } from "utils/user"
+import { useUrlQueryParam } from "utils/url"
 // import {Helmet} from "react-helmet"
 export const ProjectListScreen = () => {
     useDocumentTitle("项目列表", false);
-    
-    const [param, setParam] = useState({ name: '', personId: '' });
-    const debounceParam = useDebounce(param, 500)
+    const [param, setParam] = useUrlQueryParam(['name', 'personId'])
+    const debounceParam = useDebounce(param, 200)
     const {isLoading, error, data: list} = useProjects(debounceParam)
     const { data: users} = useUsers()
     return (<Container>
@@ -27,3 +26,4 @@ export const ProjectListScreen = () => {
 const Container = styled.div`
 padding: 3.2rem
 `
+ProjectListScreen.whyDidYouRender = false
