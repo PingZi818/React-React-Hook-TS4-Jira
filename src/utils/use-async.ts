@@ -38,6 +38,7 @@ export const useAsync = <D>(
     }
   );
   const safeDispatch = useSafeDispatch(dispatch);
+  // const mountedRef = useMountedRef();
   // useState直接传入函数的含义是：惰性初始化；所以，要用useState保存函数，不能直接传入函数
   // https://codesandbox.io/s/blissful-water-230u4?file=/src/App.js
   const [retry, setRetry] = useState(() => () => {});
@@ -76,6 +77,9 @@ export const useAsync = <D>(
       safeDispatch({ stat: "loading" });
       return promise
         .then((data) => {
+          // if(mountedRef.current){
+          //   setData(data);
+          // }
           setData(data);
           return data;
         })

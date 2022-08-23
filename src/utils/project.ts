@@ -13,8 +13,7 @@ export const useProjects =(param?: Partial<Project>)=> {
         run(fetchProjects(), {
           retry: fetchProjects
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [param])
+    }, [param, run, fetchProjects])
     return Result
 }
 export const useEditProject = () => {
