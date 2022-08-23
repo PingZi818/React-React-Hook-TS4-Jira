@@ -1,6 +1,6 @@
 import styled from "@emotion/styled"
 import { Button, Dropdown, Menu } from "antd"
-import { Row } from "components/lib"
+import { ButtonNoPadding, Row } from "components/lib"
 import { useAuth } from "context/auth-context"
 import { ProjectListScreen } from "screens/project-list"
 import {ReactComponent as SoftwareLogo} from 'assets/software-logo.svg'
@@ -8,6 +8,9 @@ import { Route, Routes } from "react-router"
 import { ProjectScreen } from "screens/project"
 import { BrowserRouter as Router } from "react-router-dom"
 import { resetRoute } from "utils"
+import { useState } from "react"
+import { ProjectModel } from "screens/project-list/project-model"
+import { ProjectPopover } from "components/project-popover"
 /**
  * grid 和 flex 各自的应用场景
  * 1. 要考虑，是一维布局 还是 二维布局
@@ -23,45 +26,56 @@ import { resetRoute } from "utils"
 // prop drilling
 
 export const AuthenticatedApp = () => {
+    const [projectModelOpen, setProjectModelOpen] = useState(false);
     return (
     <Container>
-        <PageHeader/>
+        <PageHeader setProjectModelOpen={setProjectModelOpen}/>
         <Main>
             <Router>
                 <Routes>
-                    <Route path={'/projects'} element={<ProjectListScreen/>}/>
+                    <Route path={'/projects'} element={<ProjectListScreen setProjectModelOpen={setProjectModelOpen}/>}/>
                     <Route path={'/projects/:projectId/*'} element={<ProjectScreen/>}/>
-                    <Route index element={<ProjectListScreen />} />
+                    <Route index element={<ProjectListScreen setProjectModelOpen={setProjectModelOpen}/>} />
                 </Routes>
             </Router>
         </Main>
+        <ProjectModel projectModelOpen={projectModelOpen} onClose={() => setProjectModelOpen(false)}/>
     </Container>)
 }
-const PageHeader = () => {
-    const {logout, user } = useAuth()
+const PageHeader = (props: {setProjectModelOpen: (isOpen: boolean)=> void}) => {
     return <Header between={true}>
     <HeaderLeft gap={true}>
-        <Button type={'link'} onClick={resetRoute}>
+        <ButtonNoPadding type={'link'} onClick={resetRoute}>
             <SoftwareLogo width={'18rem'} color={'rgb(38, 132,255)'}/>
-        </Button>
-        <h3>项目</h3>
-        <h3>用户</h3>
+        </ButtonNoPadding>
+        <ProjectPopover setProjectModelOpen={props.setProjectModelOpen}/>
+        <span>用户</span>
     </HeaderLeft>
     <HeaderRight>
-        <Dropdown overlay={<Menu>
-            <Menu.Item key={'logout'}>
-                <Button type={"link"} onClick={logout}>登出</Button>
-            </Menu.Item>
-            <Menu.Item></Menu.Item>
-        </Menu>}>
-            {/* 防止页面重新刷新 */}
-            <Button  type={"link"} onClick={e => e.preventDefault()}>
-                Hi, {user?.name}
-            </Button>
-        </Dropdown>
+        <User/>
     </HeaderRight>
 </Header>
 }
+const User = () => {
+    const { logout, user } = useAuth();
+    return (
+      <Dropdown
+        overlay={
+          <Menu>
+            <Menu.Item key={"logout"}>
+              <Button onClick={logout} type={"link"}>
+                登出
+              </Button>
+            </Menu.Item>
+          </Menu>
+        }
+      >
+        <Button type={"link"} onClick={(e) => e.preventDefault()}>
+          Hi, {user?.name}
+        </Button>
+      </Dropdown>
+    );
+  };
 const Container = styled.div`
     /* display: grid; */
     /* grid-template-rows: 6rem 1fr; */

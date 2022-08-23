@@ -1,4 +1,5 @@
-import { Table, TableProps } from "antd"
+import { Dropdown, Menu, Table, TableProps } from "antd"
+import { ButtonNoPadding } from "components/lib"
 import { Pin } from "components/pin"
 import dayjs from "dayjs"
 import React from "react"
@@ -15,7 +16,8 @@ export interface Project {
 }
 interface ListProps extends TableProps<Project> {
     users: User[],
-    refresh?: () => void
+    refresh?: () => void,
+    setProjectModelOpen: (isOpen: boolean)=> void
 }
 // moment.js已经停止维护，用day.js Api和它很像
 export const List = ({users, ...props} : ListProps)=> {
@@ -58,6 +60,22 @@ export const List = ({users, ...props} : ListProps)=> {
                 return <span>
                     {project.created ? dayjs(project.created).format('YYYY-MM-DD'): '无'}
                 </span>
+            }
+        },
+        {
+            render(value, project) {
+                return <Dropdown overlay={
+                    <Menu>
+                        <Menu.Item key={'edit'}>
+                          <ButtonNoPadding type={'link'} onClick={() => props.setProjectModelOpen(true)}>编辑</ButtonNoPadding>
+                        </Menu.Item>
+                        <Menu.Item key={'edit'}>
+                          {/* <ButtonNoPadding type={'link'} onClick={() => {}}>删除</ButtonNoPadding> */}
+                        </Menu.Item>
+                    </Menu>
+                }>
+                    <ButtonNoPadding type={'link'}>...</ButtonNoPadding>
+                </Dropdown>
             }
         }
     ]} 
