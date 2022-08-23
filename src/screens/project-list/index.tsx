@@ -11,14 +11,14 @@ import { useProjectsSearchParams } from "./util"
 export const ProjectListScreen = () => {
     useDocumentTitle("项目列表", false);
     const [param, setParam] = useProjectsSearchParams()
-    const {isLoading, error, data: list} = useProjects(useDebounce(param, 200))
+    const {isLoading, error, data: list, retry} = useProjects(useDebounce(param, 200))
     const { data: users} = useUsers()
     return (<Container>
         {/* <Helmet><title>请登录或注册</title></Helmet> */}
         <h1>项目列表</h1>
         <SearchPanel param ={param} setParam = {setParam} users={users || []}/>
         {error? <Typography.Text type={"danger"}>{error.message}</Typography.Text>: null}
-        <List loading={isLoading} dataSource={list || []} users={users || []}/>
+        <List refresh={retry} loading={isLoading} dataSource={list || []} users={users || []}/>
     </Container>)
 }
 

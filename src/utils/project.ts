@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useCallback, useEffect } from "react"
 import { cleanObject } from "utils"
 import { useHttp } from "./http"
 import { useAsync } from "./use-async"
@@ -6,9 +6,30 @@ import {Project} from "screens/project-list/list"
 export const useProjects =(param?: Partial<Project>)=> {
     const client = useHttp()
     const {run, ...Result} = useAsync<Project[]>()
+    const fetchProjects = useCallback(
+      () => client('projects', {data: cleanObject(param || {})}), [param, client]
+    )
     useEffect(() => {
-        run(client('projects', {data: cleanObject(param || {})}))
+        run(fetchProjects(), {
+          retry: fetchProjects
+        })
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [param])
     return Result
+}
+export const useEditProject = () => {
+    const client = useHttp()
+    const {run, ...Result} = useAsync()
+    const mutate = (params: Partial<Project>) => {
+      return  run(client(`projects/${params.id}`, {data: cleanObject(params || {}), method: 'PATCH'}))
+    }
+    return {mutate, ...Result}
+}
+export const useAddProject = () => {
+    const client = useHttp()
+    const {run, ...Result} = useAsync()
+    const mutate = (params: Partial<Project>) => {
+      return  run(client(`projects/${params.id}`, {data: cleanObject(params || {}), method: 'P'}))
+    }
+    return {mutate, ...Result}
 }
