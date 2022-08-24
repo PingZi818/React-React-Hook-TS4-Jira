@@ -17,7 +17,7 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
     users: User[],
     refresh?: () => void,
-    setProjectModelOpen: (isOpen: boolean)=> void
+    projectButton: JSX.Element
 }
 // moment.js已经停止维护，用day.js Api和它很像
 export const List = ({users, ...props} : ListProps)=> {
@@ -67,7 +67,7 @@ export const List = ({users, ...props} : ListProps)=> {
                 return <Dropdown overlay={
                     <Menu>
                         <Menu.Item key={'edit'}>
-                          <ButtonNoPadding type={'link'} onClick={() => props.setProjectModelOpen(true)}>编辑</ButtonNoPadding>
+                          {props.projectButton}
                         </Menu.Item>
                         <Menu.Item key={'edit'}>
                           {/* <ButtonNoPadding type={'link'} onClick={() => {}}>删除</ButtonNoPadding> */}
