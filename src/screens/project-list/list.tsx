@@ -6,6 +6,8 @@ import React from "react"
 import { Link } from "react-router-dom"
 import { useEditProject } from "utils/project"
 import { User } from "./search-panel"
+import {useDispatch} from 'react-redux'
+import { projectListSlice } from "screens/project-list/project-list.slice";
 export interface Project {
     id: number,
     name: string,
@@ -16,11 +18,11 @@ export interface Project {
 }
 interface ListProps extends TableProps<Project> {
     users: User[],
-    refresh?: () => void,
-    projectButton: JSX.Element
+    refresh?: () => void
 }
 // moment.js已经停止维护，用day.js Api和它很像
 export const List = ({users, ...props} : ListProps)=> {
+    const dispatch = useDispatch()
     const { mutate } = useEditProject()
     // 柯里化
     const pinProject = (id: number) => (pin: boolean) => mutate({id, pin}).then(props.refresh)
@@ -67,7 +69,7 @@ export const List = ({users, ...props} : ListProps)=> {
                 return <Dropdown overlay={
                     <Menu>
                         <Menu.Item key={'edit'}>
-                          {props.projectButton}
+                        <ButtonNoPadding type={'link'} onClick={() => dispatch(projectListSlice.actions.openProjectModel())}>编辑</ButtonNoPadding>
                         </Menu.Item>
                         <Menu.Item key={'edit'}>
                           {/* <ButtonNoPadding type={'link'} onClick={() => {}}>删除</ButtonNoPadding> */}
