@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { AuthProvider } from "./auth-context";
 import { QueryClient, QueryClientProvider } from "react-query";
 import {Provider} from "react-redux"
-import { store } from "store";
+import { store } from "store/index";
 export const AppProviders = ({children} : {children: ReactNode}) => {
     return (
         <Provider store={store}>

@@ -8,7 +8,6 @@ import { Route, Routes } from "react-router"
 import { ProjectScreen } from "screens/project"
 import { BrowserRouter as Router } from "react-router-dom"
 import { resetRoute } from "utils"
-import { useState } from "react"
 import { ProjectModel } from "screens/project-list/project-model"
 import { ProjectPopover } from "components/project-popover"
 /**
@@ -26,7 +25,6 @@ import { ProjectPopover } from "components/project-popover"
 // prop drilling
 
 export const AuthenticatedApp = () => {
-    const [projectModelOpen, setProjectModelOpen] = useState(false);
     return (
     <Container>
         <PageHeader/>
