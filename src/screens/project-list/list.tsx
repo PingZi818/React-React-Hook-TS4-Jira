@@ -5,8 +5,8 @@ import dayjs from "dayjs"
 import React from "react"
 import { Link } from "react-router-dom"
 import { useEditProject } from "utils/project"
-import { useProjectModel } from "utils/url"
 import { User } from "./search-panel"
+import { useProjectModal } from "./util"
 export interface Project {
     id: number,
     name: string,
@@ -16,15 +16,15 @@ export interface Project {
     created: number
 }
 interface ListProps extends TableProps<Project> {
-    users: User[],
-    refresh?: () => void
+    users: User[]
 }
 // moment.js已经停止维护，用day.js Api和它很像
 export const List = ({users, ...props} : ListProps)=> {
     const { mutate } = useEditProject()
-    const { open } = useProjectModel()
+    const { startEdit } = useProjectModal()
     // 柯里化
-    const pinProject = (id: number) => (pin: boolean) => mutate({id, pin}).then(props.refresh)
+    const pinProject = (id: number) => (pin: boolean) => mutate({id, pin})
+    const editProject = (id: number) => () => startEdit(id)
     return <Table 
     rowKey={"id"}
     pagination={false} 
@@ -68,10 +68,10 @@ export const List = ({users, ...props} : ListProps)=> {
                 return <Dropdown overlay={
                     <Menu>
                         <Menu.Item key={'edit'}>
-                        <ButtonNoPadding type={'link'} onClick={open}>编辑</ButtonNoPadding>
+                          <ButtonNoPadding type={'link'} onClick={editProject(project.id)}>编辑</ButtonNoPadding>
                         </Menu.Item>
-                        <Menu.Item key={'edit'}>
-                          {/* <ButtonNoPadding type={'link'} onClick={() => {}}>删除</ButtonNoPadding> */}
+                        <Menu.Item key={'delete'}>
+                          <ButtonNoPadding type={'link'} onClick={() => {}}>删除</ButtonNoPadding>
                         </Menu.Item>
                     </Menu>
                 }>

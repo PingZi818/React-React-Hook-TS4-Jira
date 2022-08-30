@@ -3,18 +3,17 @@ import { List } from "./list"
 import { SearchPanel } from "./search-panel"
 import { useDebounce, useDocumentTitle } from "../../utils"
 import styled from "@emotion/styled"
-import { Row, Typography } from "antd"
+import { Row } from "antd"
 import { useProjects } from "utils/project"
 import { useUsers } from "utils/user"
-import { useProjectsSearchParams } from "./util"
-import { ButtonNoPadding } from "components/lib"
-import { useProjectModel } from "utils/url"
+import { useProjectModal, useProjectsSearchParams } from "./util"
+import { ButtonNoPadding, ErrorBox } from "components/lib"
 // import {Helmet} from "react-helmet"
 export const ProjectListScreen = () => {
     useDocumentTitle("项目列表", false);
     const [param, setParam] = useProjectsSearchParams()
-    const { open } = useProjectModel()
-    const {isLoading, error, data: list, retry} = useProjects(useDebounce(param, 200))
+    const { open } = useProjectModal()
+    const {isLoading, error, data: list} = useProjects(useDebounce(param, 200))
     const { data: users} = useUsers()
     return (<Container>
         <Row justify={'space-between'}>
@@ -23,9 +22,8 @@ export const ProjectListScreen = () => {
         </Row>
         {/* <Helmet><title>请登录或注册</title></Helmet> */}
         <SearchPanel param ={param} setParam = {setParam} users={users || []}/>
-        {error? <Typography.Text type={"danger"}>{error.message}</Typography.Text>: null}
+        <ErrorBox error={error}/>
         <List 
-        refresh={retry} 
         loading={isLoading} 
         dataSource={list || []} 
         users={users || []}/>
