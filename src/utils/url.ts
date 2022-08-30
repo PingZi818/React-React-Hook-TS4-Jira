@@ -18,3 +18,16 @@ export const useUrlQueryParam = <K extends string>(keys: K[]) => {
         }
     ] as const
 }
+// 用url創建和管理模態框的狀態
+export const useProjectModel = () => {
+    const [{ projectCreate }, setProjectCreate] = useUrlQueryParam([
+        "projectCreate",
+      ]);
+    const open = () => setProjectCreate({ projectCreate: true });
+    const close = () => setProjectCreate({projectCreate: undefined});
+    return {
+        projectModalOpen: projectCreate === "true",
+        open,
+        close   
+    }
+}
