@@ -1,6 +1,7 @@
 import { useSetUrlSearchParam, useUrlQueryParam } from "utils/url";
 import { useMemo } from "react";
 import { useProject } from "utils/project";
+import { cleanObject } from "utils";
 
 // 项目列表搜索的参数
 export const useProjectsSearchParams = () => {
@@ -16,7 +17,7 @@ export const useProjectsSearchParams = () => {
 
 export const useProjectsQueryKey = () => {
   const [params] = useProjectsSearchParams();
-  return ["projects", params];
+  return ["projects", cleanObject(params)];
 };
 
 export const useProjectModal = () => {

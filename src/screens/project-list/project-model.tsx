@@ -12,7 +12,7 @@ export const ProjectModel = () => {
         mutateAsync,
         error,
         isLoading: mutateLoading,
-    } = useMutateProject();
+    } = useMutateProject(useProjectsQueryKey());
     // 自定义hook是不能在函数里使用的
     const [form] = Form.useForm();
     const onFinish = (values: any) => {
