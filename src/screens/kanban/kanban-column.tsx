@@ -12,7 +12,7 @@ const TaskTypeIcon = ({id}: {id: number}) => {
     if(!name){
         return null
     }
-    return <img src={name === 'task' ? taskIcon : bugIcon}/>
+    return <img  src={name === 'task' ? taskIcon : bugIcon}/>
 }
 
 export const KanbanColumn = ({kanban}:{kanban:Kanban})=> {
@@ -45,7 +45,6 @@ export const Container = styled.div`
 const TasksContainer = styled.div`
   overflow: scroll;
   flex: 1;
-
   ::-webkit-scrollbar {
     display: none;
   }
