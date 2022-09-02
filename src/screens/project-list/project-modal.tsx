@@ -2,10 +2,10 @@ import styled from "@emotion/styled";
 import { Button, Drawer, Form, Input, Spin } from "antd";
 import { ErrorBox } from "components/lib";
 import { UserSelect } from "components/user-select";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useAddProject, useEditProject } from "utils/project";
 import { useProjectModal, useProjectsQueryKey } from "./util";
-export const ProjectModel = () => {
+export const ProjectModal = () => {
     const { projectModalOpen, close, editingProject, isLoading } = useProjectModal();
     const useMutateProject = editingProject ? useEditProject : useAddProject;
     const {

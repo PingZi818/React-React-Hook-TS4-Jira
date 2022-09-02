@@ -10,11 +10,11 @@ import { KanbanColumn } from "screens/kanban/kanban-column";
 import { SearchPanel } from "screens/kanban/search-panel";
 import { TaskModal } from "screens/kanban/task-modal";
 import {
-    useKanbanSearchParams,
-    useKanbansQueryKey,
-    useProjectInUrl,
-    useTasksQueryKey,
-    useTasksSearchParams
+  useKanbanSearchParams,
+  useKanbansQueryKey,
+  useProjectInUrl,
+  useTasksQueryKey,
+  useTasksSearchParams
 } from "screens/kanban/util";
 import { useDocumentTitle } from "utils";
 import { useKanbans, useReorderKanban } from "utils/kanban";

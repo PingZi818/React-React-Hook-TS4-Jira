@@ -5,7 +5,7 @@ import {
   Droppable,
   DroppableProps,
   DroppableProvided,
-  DroppableProvidedProps,
+  DroppableProvidedProps
 } from "react-beautiful-dnd";
 
 type DropProps = Omit<DroppableProps, "children"> & { children: ReactNode };
