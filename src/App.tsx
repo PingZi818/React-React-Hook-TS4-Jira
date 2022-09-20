@@ -10,10 +10,6 @@ const UnauthenticatedApp = React.lazy(() => import("unauthenticated-app"));
 function App() {
   const { user } = useAuth();
 
-
-
-
-  
   return (
     <div className="App">
       <ErrorBoundary fallbackRender={FullPageErrorFallback}>
